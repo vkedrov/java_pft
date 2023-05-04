@@ -10,11 +10,13 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
   private WebDriver wd;
   private GroupHelper groupHelper;
+  private NavigationHelper navigationHelper; // объявление переменной класса с адресом экземпляра класса
   public void init() {
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/");
     groupHelper = new GroupHelper(wd);
+    navigationHelper = new NavigationHelper(wd); // создание нового экземпляра класса и присвоение его адреса переменной класса
     login("admin", "secret");
   }
   private void login(String username, String password) {
@@ -24,11 +26,7 @@ public class ApplicationManager {
     wd.findElement(By.name("pass")).sendKeys(password);
     wd.findElement(By.xpath("//input[@value='Login']")).click();
   }
-  public void gotoGroupPage() {
-    wd.findElement(By.linkText("groups")).click();
-  }
-
-  public void stop() {
+    public void stop() {
     wd.findElement(By.linkText("Logout")).click();
     wd.quit();
   }
@@ -54,4 +52,7 @@ public class ApplicationManager {
   public GroupHelper getGroupHelper() {
     return groupHelper;
   }
+  public NavigationHelper getNavigationHelper() {
+    return navigationHelper;
+  } // метод возвращающий адрес экземпляра класса
 }
