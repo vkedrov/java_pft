@@ -10,4 +10,7 @@ public class NavigationHelper extends HelperBase {
   public void gotoGroupPage() {
     click(By.linkText("groups"));   // метод
   }
+  public void gotoHomePage() {
+    click(By.linkText("home"));   // метод
+  }
 }
