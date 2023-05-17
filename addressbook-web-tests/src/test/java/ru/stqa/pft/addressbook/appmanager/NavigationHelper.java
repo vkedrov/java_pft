@@ -8,9 +8,17 @@ public class NavigationHelper extends HelperBase {
     super(wd);  // вызов конструктора базового класса
   }
   public void gotoGroupPage() {
+    if (isElementPresent(By.tagName("h1"))
+            && wd.findElement(By.tagName("h1")).getText().equals("Groups")
+            && isElementPresent(By.name("new")) ) {
+      return;
+    }
     click(By.linkText("groups"));   // метод
   }
   public void gotoHomePage() {
+    if (isElementPresent(By.id("maintable"))) {
+      return;
+    }
     click(By.linkText("home"));   // метод
   }
 }

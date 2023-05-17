@@ -16,7 +16,7 @@ public class ApplicationManager {
   private NavigationHelper navigationHelper; // объявление переменной класса с адресом экземпляра класса
   private SessionHelper sessionHelper;
   private String browser;
-
+  private ContactHelper contactHelper;
   public ApplicationManager(String browser) {
     this.browser = browser;
   }
@@ -35,12 +35,13 @@ public class ApplicationManager {
         break;
     }
 
-    wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/");
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd); // создание нового экземпляра класса и присвоение его адреса переменной класса
     sessionHelper = new SessionHelper(wd);
     sessionHelper.login("admin", "secret");
+    contactHelper = new ContactHelper(wd);
   }
     public void stop() {
     wd.findElement(By.linkText("Logout")).click();
@@ -53,4 +54,7 @@ public class ApplicationManager {
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;
   } // метод возвращающий адрес экземпляра класса
+  public ContactHelper getContactHelper() {
+    return contactHelper;
+  }
 }
